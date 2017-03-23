@@ -1,0 +1,52 @@
+def createCustomDirectKafkaStream(ssc: StreamingContext, kafkaParams: Map[String, String], zkHosts: String, zkPath: String, topics: Set[String]): InputDStream[(String, String)] = {
+
+    //val topic = topics.last
+    @transient lazy val zkClient = new ZkClient(zkHosts, 30000, 30000)
+    val storedOffsets = readOffsets(zkClient, zkHosts, zkPath)
+    val kafkaStream = storedOffsets match {
+      case None => //start from the latest offsets
+        KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topics)
+      case Some(fromOffsets) => //start from previously saved offsets
+        val messageHandler = (mmd: MessageAndMetadata[String, String]) => (mmd.key, mmd.message)
+        KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder, (String, String)](ssc, kafkaParams, fromOffsets, messageHandler)
+    }
+    //save the offsets
+    kafkaStream.foreachRDD(rdd => saveOffsets(zkClient, zkHosts, zkPath, rdd))
+    kafkaStream
+
+  }
+
+  //Read the previously saved offsets from zookeeper
+  private def readOffsets(zkClient: ZkClient, zkHosts: String, zkPath: String): Option[Map[TopicAndPartition, Long]] = {
+    val stopwatch = new Stopwatch()
+    val (offsetsRangesStrOpt, _) = ZkUtils.apply(zkClient, false).readDataMaybeNull(zkPath)
+    offsetsRangesStrOpt match {
+      case Some(offsetsRangerStr) =>
+        log.info("Read offset ranges..:" + offsetsRangerStr)
+        val offsets = offsetsRangerStr.split(",")
+          .map(s => s.split(":"))
+          .map { case Array(topic, partitionStr, offsetStr) => (TopicAndPartition(topic.toString, partitionStr.toInt) -> offsetStr.toLong) }
+          .toMap
+        Some(offsets)
+      case None =>
+        None
+    }
+
+  }
+
+  private def saveOffsets(zkClient: ZkClient, zkHosts: String, zkPath: String, rdd: RDD[_]): Unit = {
+
+    println("Saving offsets to zookeeper")
+    val stopwatch = new Stopwatch()
+    val offsetsRanges = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
+    val offsetsRangerStr = offsetsRanges.map(offsetRange => s"${offsetRange.topic}:${offsetRange.partition}:${offsetRange.fromOffset}")
+      .mkString(",")
+    println("writing offsets to zookeeper zkClient=" + zkClient + "  zkHost" + zkHosts + " offset Range--  " + offsetsRangerStr)
+    log.info("writing offsets to zookeeper zkClient=" + zkClient + "  zkHost" + zkHosts + " offset Range--  " + offsetsRangerStr)
+    ZkUtils.apply(zkClient, false).updatePersistentPath(zkPath, offsetsRangerStr)
+  }
+
+  class Stopwatch {
+    private val start = System.currentTimeMillis()
+    override def toString() = { System.currentTimeMillis() - start } + "ms"
+  }
