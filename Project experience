@@ -35,3 +35,21 @@ Experience of working on a project end-to-end: problem scoping, data gathering, 
 Problem-solving: Ability to break the problem into small problems and think of relevant techniques which can be explored & used to cater to those
 Intermediate to advanced knowledge of machine learning, natural language processing, probability theory, statistics, and algorithms. You will be required to discuss and use various algorithms and approaches on a daily basis.
 We use regression, Bayesian methods, tree-based learners, SVM, RF, XGBOOST, time series modeling, dimensionality reduction, SEM, GLM, GLMM, clustering etc. on a regular basis. If you know few of them you are good to go.
+
+
+
+Data Services team is responsible for managing LinkedIn data and operating LinkedIn’s highly scalable and massive data ingestion pipelines consuming data from Kafka, Oracle, MySQL, NoSQL, DataBus(real-time change capture system) & Third party vendors. This team is also responsible for handling data logistics between multi-colo Hadoop clusters with strict SLA’s in place. Apart from operating and managing data at LinkedIn, this team also builds top notch tools that help in Hadoop capacity planning in terms of computation & storage, alerting, monitoring & data SLA's.
+
+Being part of the data services team, my primary responsibility is to setup data ingestion pipelines like Gobblin ( {Kafka|DB|RestAPI} ➙HDFS ), Camus ( Kafka ➙HDFS ), Lumos ( {Oracle|MySQL|Espresso} ➙HDFS ), Databus (real time db change capture system), define SLA’s, setup alerting and monitoring.
+
+I was responsible for managing LinkedIn’s multi petabyte Hive warehouse. It includes dynamically building databases/tables using avro schemas for all the datasets in the Hadoop clusters and setting up a Hive registration process for new tables and newly available partitions for the existing tables.
+
+Build and configure data ingestion pipelines for internal data sources and external data vendors like GoogleAds & Salesforce systems \to HDFS using an universal data ingestion framework called Gobblin.
+
+
+• Strong experience on Hadoop Development/Administration, Database Management Systems, ETL, Reporting and Core Java
+• Strong experience in Hadoop and its components like Map Reduce, Hive, Pig, HCatalog.
+• Strong Experience in setup, installation and configuration of Cloudera Distributed Hadoop (CDH3, CDH4 & CDH5) on 21 node cluster and Hortonworks Data Platform (HDP 2.0 & HDP 2.1) on 32 nodes
+• Strong experience on Tableau Reporting tool
+• Experience on Talend open studio for Big Data ETL tool.
+• Oracle Certified Java Programmer (1Z0-851)
