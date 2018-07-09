@@ -1,0 +1,19 @@
+   val conf = HBaseConfiguration.create()
+    val hbaseContext = new HBaseContext(sc, conf)
+    val ColumnNames = schemaFields.split(",")
+    hbaseContext.bulkPut[String](streamingRDD,
+      TableName.valueOf(tableName),
+      (putRecord) => {
+        var colIndex = 0
+        val put = new Put(Bytes.toBytes(putRecord.split(";,;")(rkIndex))) // RK value
+        for (colName <- ColumnNames) {
+          putFunc(put, columnFamily, colName, putRecord.split(";,;")(timeStpIndex), putRecord.split(";,;")(colIndex))
+          colIndex = colIndex + 1
+        }
+        put
+      })
+      
+ def putFunc(put: Put, cf: String, colName: String, tsValue: String, colValue: String) {
+    put.addColumn(Bytes.toBytes(cf), Bytes.toBytes(colName),
+      tsValue.toLong, Bytes.toBytes(colValue))
+  }
