@@ -16,4 +16,17 @@
  def putFunc(put: Put, cf: String, colName: String, tsValue: String, colValue: String) {
     put.addColumn(Bytes.toBytes(cf), Bytes.toBytes(colName),
       tsValue.toLong, Bytes.toBytes(colValue))
-  }
+ }
+
+  val dfColNames = finalcastDF.columns.toList
+    val conf = HBaseConfiguration.create()
+    val hbaseContext = new HBaseContext(sc, conf)
+    hbaseContext.bulkPut[String](streamingRDD,
+      TableName.valueOf(tableName),
+      (putRecord) => {
+        val put = new Put(Bytes.toBytes(putRecord.split(";,;")(dfColNames.indexOf(rkFieldName)))) // RK value
+        for (colName <- dfColNames) {
+          putFunc(put, columnFamily, colName, putRecord.split(";,;")(dfColNames.indexOf(timeStpFieldName)), putRecord.split(";,;")(dfColNames.indexOf(colName)))
+        }
+        put
+      })
