@@ -1,4 +1,12 @@
-   val conf = HBaseConfiguration.create()
+ <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-spark -->
+<dependency>
+    <groupId>org.apache.hbase</groupId>
+    <artifactId>hbase-spark</artifactId>
+    <version>2.0.0-alpha-1</version>
+</dependency>
+
+ 
+ val conf = HBaseConfiguration.create()
     val hbaseContext = new HBaseContext(sc, conf)
     val ColumnNames = schemaFields.split(",")
     hbaseContext.bulkPut[String](streamingRDD,
