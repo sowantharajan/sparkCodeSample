@@ -37,3 +37,22 @@ https://github.com/baghelamit/iot-traffic-monitor
 ## Spark Exploration in depth
 https://github.com/duycuong87vn/SparkTraining/tree/b1a4381fc1b8c03e3eb264c3068b2b747d6e501b
 https://github.com/Saevel/Transaction-Analytics/tree/716885e5a9849b745261b49e77d8be02d8a92fde
+
+## Spark Memory Configuration
+https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
+https://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/
+https://qubole.zendesk.com/hc/en-us/articles/217111026-Reference-Relationship-between-Partitions-Tasks-Cores
+https://mapr.com/blog/resource-allocation-configuration-spark-yarn/
+
+The relationship between tasks and cores is established with spark.task.cpus and the overall core requirement for a stage is estimated as:
+# of Cores required for Stage = (# of Tasks required for Stage) * (spark.task.cpus)
+
+Each Executor in Spark hosts either a single or multiple partitions and as a result either a single or multiple tasks during processing of a stage and the subsequent jobs associated with the code that was executed. The relationship between executors and cores, and as a result the relationship between executors and tasks, is driven with spark.executor.cores and can be established as:
+# of Executors required for Stage = (# of Cores required for Stage) / (spark.executor.cores)
+
+#types
+ -- Tiny executors
+ -- Fat executors
+ -- Balance between Fat & Tiny
+ 
+The two main resources that Spark (and YARN) think about are CPU and memory.
