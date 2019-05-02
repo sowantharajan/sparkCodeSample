@@ -38,6 +38,9 @@ https://github.com/baghelamit/iot-traffic-monitor
 https://github.com/duycuong87vn/SparkTraining/tree/b1a4381fc1b8c03e3eb264c3068b2b747d6e501b
 https://github.com/Saevel/Transaction-Analytics/tree/716885e5a9849b745261b49e77d8be02d8a92fde
 
+## Spark Cassandra Schema
+https://github.com/lenards/explore-spark/tree/1311a88d432cfdcb24abb65b27b6d18186e010f2
+
 ## Spark Memory Configuration
 https://spoddutur.github.io/spark-notes/distribution_of_executors_cores_and_memory_for_spark_application.html
 https://blog.cloudera.com/blog/2015/03/how-to-tune-your-apache-spark-jobs-part-2/
