@@ -30,6 +30,6 @@ https://ihong5.wordpress.com/2014/07/07/znode-types-and-how-to-create-read-delet
 ## HDF, Kafka and solr case study
 https://dzone.com/articles/data-science-with-spark
 
-Projects
+## Projects
 https://github.com/simonambridge/RTFAP2
 https://github.com/baghelamit/iot-traffic-monitor
