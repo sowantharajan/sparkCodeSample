@@ -45,10 +45,10 @@ https://qubole.zendesk.com/hc/en-us/articles/217111026-Reference-Relationship-be
 https://mapr.com/blog/resource-allocation-configuration-spark-yarn/
 
 The relationship between tasks and cores is established with spark.task.cpus and the overall core requirement for a stage is estimated as:
-# of Cores required for Stage = (# of Tasks required for Stage) * (spark.task.cpus)
+# No of Cores required for Stage = (# of Tasks required for Stage) * (spark.task.cpus)
 
 Each Executor in Spark hosts either a single or multiple partitions and as a result either a single or multiple tasks during processing of a stage and the subsequent jobs associated with the code that was executed. The relationship between executors and cores, and as a result the relationship between executors and tasks, is driven with spark.executor.cores and can be established as:
-# of Executors required for Stage = (# of Cores required for Stage) / (spark.executor.cores)
+# No of Executors required for Stage = (# of Cores required for Stage) / (spark.executor.cores)
 
 #types
  -- Tiny executors
