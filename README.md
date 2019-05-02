@@ -33,3 +33,7 @@ https://dzone.com/articles/data-science-with-spark
 ## Projects
 https://github.com/simonambridge/RTFAP2
 https://github.com/baghelamit/iot-traffic-monitor
+
+## Spark Exploration in depth
+https://github.com/duycuong87vn/SparkTraining/tree/b1a4381fc1b8c03e3eb264c3068b2b747d6e501b
+https://github.com/Saevel/Transaction-Analytics/tree/716885e5a9849b745261b49e77d8be02d8a92fde
